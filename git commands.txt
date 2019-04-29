@@ -1,0 +1,6 @@
+echo "# angular-crud" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/tssule3/angular-crud.git
+git push -u origin master

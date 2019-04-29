@@ -1,0 +1,22 @@
+<div class="container">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <h1>Login</h1>
+    <div>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" formControlName="email" placeholder="Email">
+        <mat-error>Email is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" formControlName="password" placeholder="Password">
+        <mat-error>Password is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button color="accent" [disabled]="loginForm.invalid">Login</button>
+      <div class="inner-div">
+        <button mat-button color="primary" routerLink="/register">Sign Up</button></div>
+    </div>
+  </form>
+</div>

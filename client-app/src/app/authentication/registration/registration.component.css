@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+mat-form-field{
+    width: 400px;
+}
+.inner-div{
+    display: flex;
+    float: right;
+}
+button{
+    width: 10em;
+}

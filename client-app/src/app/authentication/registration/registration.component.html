@@ -1,0 +1,25 @@
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <h1>Registration</h1>
+    <div>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" formControlName="email" placeholder="Email">
+        <mat-error>Email is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" formControlName="password" placeholder="Password">
+        <mat-error>Password is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" [disabled]="registerForm.invalid" type="submit">Register</button>
+      <div class="inner-div">
+        <button mat-button color="warn" routerLink="/login">Have An Account?</button></div>
+    </div>
+  </form>
+</div>
