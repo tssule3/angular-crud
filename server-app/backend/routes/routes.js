@@ -22,14 +22,27 @@ router.post('/register', (req, res) => {
         email: userBody.email,
         password: userBody.password
     });
-    user.save().then((data) => {
-        let payload = { subject: data._id };
-        let token = jwt.sign(payload, 'secretKey');
-        res.status(201).json({
-            message: 'User Added',
-            token: token
+    Users.find().then((doc) => {
+       let result =  doc.filter((d) => {
+            return d.email === userBody.email;
         });
+        if(result.length>0){
+            console.log('result', result);
+            res.status(200).json({
+                message:'Email ALready Exists'
+            });
+        }else{
+            user.save().then((data) => {
+                let payload = { subject: data._id };
+                let token = jwt.sign(payload, 'secretKey');
+                res.status(201).json({
+                    message: 'User Added',
+                    token: token
+                });
+            });
+        }
     });
+
 });
 
 router.post('/login', (req, res) => {
