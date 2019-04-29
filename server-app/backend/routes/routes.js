@@ -76,8 +76,8 @@ router.post('/forgot', (req, res) => {
     Users.findOne({ email: forgotData.email }).then((doc) => {
         if (doc) {
             console.log('forgotData.email', doc);
-            sgMail.setApiKey('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');
-            const msg = {
+            sgMail.setApiKey('use_your_key');
+            const msg = {use_your_key
                 to: `${forgotData.email}`,
                 from: 'pradhanrohit893@gmail.com',
                 subject: 'Password Reset Request',
