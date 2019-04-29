@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
         password: userBody.password
     });
     user.save().then((data) => {
-        let payload = {subject: data._id};
+        let payload = { subject: data._id };
         let token = jwt.sign(payload, 'secretKey');
         res.status(201).json({
             message: 'User Added',
@@ -32,24 +32,26 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.post('/login', (req,res) => {
+router.post('/login', (req, res) => {
     let userData = req.body;
-    Users.findOne({email: userData.email}).then((doc) => {
-        if(doc) {
+    Users.findOne({ email: userData.email }).then((doc) => {
+        if (doc) {
+            let payload = { subject: doc._id };
+            let token = jwt.sign(payload, 'secretKey');
             console.log('doc', doc);
-            if(userData.password === doc.password){
+            if (userData.password === doc.password) {
                 res.status(200).json({
                     message: ' Logged In!',
-                    data: true 
+                    data: token
                 });
-            } else{
+            } else {
                 res.status(200).json({
                     message: ' Password Invalid', data: false
                 });
             }
-        }else {
+        } else {
             res.status(200).json({
-                message: 'Email Invalid',data: false
+                message: 'Email Invalid', data: false
             });
         }
     });

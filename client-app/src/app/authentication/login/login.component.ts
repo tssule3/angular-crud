@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
     let data = this.loginForm.value;
     this._authService.login(data).subscribe((data) => {
       console.log('data from login', data);
-     if(data['data'] == true) {
-      localStorage.setItem('token', 'loggedin');
+     if(data['data']) {
+      localStorage.setItem('token', data['data']);
       let email = this.loginForm.value.email.split('@')[0];
       console.log('email', email);
       this._router.navigate([`/dashboard/${email}`]);
