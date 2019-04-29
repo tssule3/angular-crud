@@ -10,8 +10,9 @@ import { AuthGuard } from '../auth.guard';
 import { MaterialModule } from '../material/material.module';
 import { TokenInterceptorService } from '../service/token-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 @NgModule({
-  declarations: [LoginComponent, RegistrationComponent, DashboardComponent],
+  declarations: [LoginComponent, RegistrationComponent, DashboardComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,

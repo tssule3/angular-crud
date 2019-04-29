@@ -4,6 +4,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Users = require('../models/users');
 const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
+
 mongoose.connect('mongodb://tejas:sule@localhost:27017/customerDatabase', { useNewUrlParser: true }).
     then(() => { console.log('connected') }).catch((err) => {
         console.log('err', err);
@@ -23,15 +25,15 @@ router.post('/register', (req, res) => {
         password: userBody.password
     });
     Users.find().then((doc) => {
-       let result =  doc.filter((d) => {
+        let result = doc.filter((d) => {
             return d.email === userBody.email;
         });
-        if(result.length>0){
+        if (result.length > 0) {
             console.log('result', result);
             res.status(200).json({
-                message:'Email ALready Exists'
+                message: 'Email ALready Exists'
             });
-        }else{
+        } else {
             user.save().then((data) => {
                 let payload = { subject: data._id };
                 let token = jwt.sign(payload, 'secretKey');
@@ -69,4 +71,30 @@ router.post('/login', (req, res) => {
         }
     });
 });
+router.post('/forgot', (req, res) => {
+    let forgotData = req.body;
+    Users.findOne({ email: forgotData.email }).then((doc) => {
+        if (doc) {
+            console.log('forgotData.email', doc);
+            sgMail.setApiKey('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');
+            const msg = {
+                to: `${forgotData.email}`,
+                from: 'pradhanrohit893@gmail.com',
+                subject: 'Password Reset Request',
+                text: `Please Find Your Password, Store It Safe, Don't Disclose It,
+                    Your Password is:- ${doc.password}`
+            };
+          
+            res.status(200).json({
+                message: 'Password Sent To Email!',
+                mail: sgMail.send(msg)
+            });
+        } else {
+            res.status(200).json({
+                message: 'Email DoesNot Exist!'
+            });
+        }
+    });
+});
+
 module.exports = router;

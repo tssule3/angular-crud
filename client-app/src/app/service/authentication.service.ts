@@ -21,4 +21,8 @@ export class AuthenticationService {
   getToken() {
     return localStorage.getItem('token');
   }
+  forgotPassword(data): Observable<any> {
+    console.log('forgot service data', data);
+    return this._http.post('http://localhost:3000/users/forgot', {email: data});
+  }
 }
